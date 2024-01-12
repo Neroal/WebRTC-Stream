@@ -3,13 +3,6 @@
 class SrsRtcWhipWhepAsync {
 
     constructor() {
-        this.constranits = {
-            audio: true,
-            video: {
-                width: { ideal: 320, max: 576 }
-            }
-        }
-
         this.pc = new RTCPeerConnection(null);
         this.stream = new MediaStream();
 
