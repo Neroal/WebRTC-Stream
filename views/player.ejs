@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= TITLE %>
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <META HTTP-EQUIV="EXPIRES" CONTENT="Mon, 22 Jul 2002 11:12:01 GMT">
+    <link rel='stylesheet' href='stylesheets/style.css' />
+
+    <script type="text/javascript" src="/javascripts/adapter-7.4.0.min.js"></script>
+    <script type="text/javascript" src="/javascripts/srs.sdk.js"></script>
+</head>
+
+<body>
+    <div id="video-container1" style="width:1280px; height:720px; background-color: #000;">
+        <video id="rtc_media_player" muted playsinline autoplay style="width:1280px; height:720px;"></video>
+    </div>
+
+    <img id="mask" src="/images/7019189B.jpg" alt="" style="width: 1280px; height: 720px; position: absolute; top: 0%; left: 0%;">
+</body>
+
+<script>
+    const url = "http://10.20.30.124:1985/rtc/v1/whep/?app=live&stream=" + "<%= TABLE_ID %>";
+
+    var sdk;
+    var video;
+
+    function create() {
+        if (sdk) {
+            sdk.close();
+        }
+
+        sdk = new SrsRtcWhipWhepAsync();
+
+        video.srcObject = sdk.stream;
+
+        sdk.play(url);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        video = document.querySelector('#rtc_media_player');
+        video.poster = '/images/loading.gif';
+        video.muted = true;
+
+        mask = document.querySelector('#mask');
+        mask.hidden = true;
+
+        video.addEventListener('play', () => {
+            mask.hidden = false;
+        })
+
+        create();
+    })
+</script>
+
+</html>
