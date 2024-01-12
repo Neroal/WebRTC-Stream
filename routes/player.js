@@ -4,7 +4,7 @@ var router = express.Router();
 router.get('/', function (req, res, next) {
     const tableID  = tableParser(req.query);
     res.render('player', { 
-        TITLE: 'CEBU WebRTC', 
+        TITLE: 'WebRTC', 
         TABLE_ID: tableID,
     });
 });
